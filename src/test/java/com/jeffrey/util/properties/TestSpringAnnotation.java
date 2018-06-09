@@ -1,4 +1,4 @@
-package com.jeffrey.test.properties;
+package com.jeffrey.util.properties;
 
 import com.jeffrey.util.properties.SpringAnnotation;
 import org.junit.Test;
