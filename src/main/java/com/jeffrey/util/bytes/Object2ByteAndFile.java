@@ -105,7 +105,7 @@ public class Object2ByteAndFile {
         employee.setName("Jeffrey.Liu");
         employee.setJob("enginner");
         byte[] bytes = getBytesFromObject(employee);
-        File file = getFileFromBytes(bytes,"E:\\employee.txt");
+        File file = getFileFromBytes(bytes,"E:\\Employee.txt");
         Employee employee1 = (Employee) getObjectFromBytes(getBytesFromFile(file));
         System.out.println(employee1.getName());
     }
