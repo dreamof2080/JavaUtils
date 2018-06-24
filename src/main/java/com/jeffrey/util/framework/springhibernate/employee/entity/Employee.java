@@ -1,6 +1,4 @@
-package com.jeffrey.util.framework.employee.entity;
-
-import org.hibernate.annotations.GenericGenerator;
+package com.jeffrey.util.framework.springhibernate.employee.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

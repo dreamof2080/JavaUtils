@@ -1,14 +1,12 @@
-package com.jeffrey.util.framework.employee.service.impl;
+package com.jeffrey.util.framework.springhibernate.employee.service.impl;
 
-import com.jeffrey.util.framework.employee.entity.Employee;
-import com.jeffrey.util.framework.employee.service.EmployeeService;
+import com.jeffrey.util.framework.springhibernate.employee.entity.Employee;
+import com.jeffrey.util.framework.springhibernate.employee.service.EmployeeService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import static org.junit.Assert.*;
 
 /**
  * @author Jeffrey.Liu

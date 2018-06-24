@@ -1,6 +1,6 @@
-package com.jeffrey.util.framework.employee.dao;
+package com.jeffrey.util.framework.springhibernate.employee.dao;
 
-import com.jeffrey.util.framework.employee.entity.Employee;
+import com.jeffrey.util.framework.springhibernate.employee.entity.Employee;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package com.jeffrey.util.framework.employee.service;
+package com.jeffrey.util.framework.springhibernate.employee.service;
 
-import com.jeffrey.util.framework.employee.entity.Employee;
+import com.jeffrey.util.framework.springhibernate.employee.entity.Employee;
 
 /**
  * @author Jeffrey.Liu

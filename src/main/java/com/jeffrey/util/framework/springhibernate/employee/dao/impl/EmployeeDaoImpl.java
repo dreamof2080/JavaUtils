@@ -1,7 +1,7 @@
-package com.jeffrey.util.framework.employee.dao.impl;
+package com.jeffrey.util.framework.springhibernate.employee.dao.impl;
 
-import com.jeffrey.util.framework.employee.entity.Employee;
-import com.jeffrey.util.framework.employee.dao.EmployeeDao;
+import com.jeffrey.util.framework.springhibernate.employee.entity.Employee;
+import com.jeffrey.util.framework.springhibernate.employee.dao.EmployeeDao;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
