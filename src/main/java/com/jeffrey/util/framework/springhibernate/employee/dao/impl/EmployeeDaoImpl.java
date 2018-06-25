@@ -113,4 +113,16 @@ public class EmployeeDaoImpl extends HibernateDaoSupport implements EmployeeDao 
         Query<Employee> query = this.currentSession().createQuery(criteriaQuery);
         return query.list();
     }
+
+    @Override
+    public List<Employee> getBySomeName(String pattern) {
+        CriteriaBuilder criteriaBuilder = this.currentSession().getCriteriaBuilder();
+        CriteriaQuery<Employee> criteriaQuery = criteriaBuilder.createQuery(Employee.class);
+        Root<Employee> root = criteriaQuery.from(Employee.class);
+        criteriaQuery = criteriaQuery.select(root);
+        Expression<String> expression = root.get("name");
+        Predicate predicate = criteriaBuilder.and(criteriaBuilder.like(expression, pattern));
+        Query<Employee> query = this.currentSession().createQuery(criteriaQuery.where(predicate));
+        return query.list();
+    }
 }

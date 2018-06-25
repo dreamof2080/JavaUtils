@@ -58,4 +58,9 @@ public interface EmployeeDao {
      * 获取年龄最大的employee max(age)
      */
     List<Employee> getByMaxAge(Integer age);
+
+    /**
+     * 模糊查询
+     */
+    List<Employee> getBySomeName(String pattern);
 }
