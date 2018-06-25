@@ -10,4 +10,5 @@
     * 二分查找
     * 斐波那契数列
     * 二进制转换
+* log4j+sl4j的日志管理  
 * spring4.3+hibernate5.2+duid的集成
