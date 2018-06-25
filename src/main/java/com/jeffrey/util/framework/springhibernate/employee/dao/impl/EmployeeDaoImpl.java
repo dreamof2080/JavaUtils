@@ -10,9 +10,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,7 +40,7 @@ public class EmployeeDaoImpl extends HibernateDaoSupport implements EmployeeDao 
 
     @Override
     @Transactional
-    public void update(Employee employee) {
+    public void saveOrUpdate(Employee employee) {
         this.currentSession().saveOrUpdate(employee);
     }
 
@@ -49,5 +48,57 @@ public class EmployeeDaoImpl extends HibernateDaoSupport implements EmployeeDao 
     @Transactional
     public void delete(Employee employee) {
         this.currentSession().delete(employee);
+    }
+
+    @Override
+    @Transactional
+    public List<Employee> getByName(String name){
+        CriteriaBuilder criteriaBuilder = this.currentSession().getCriteriaBuilder();
+        CriteriaQuery<Employee> criteriaQuery = criteriaBuilder.createQuery(Employee.class);
+        Root<Employee> root = criteriaQuery.from(Employee.class);
+        criteriaQuery = criteriaQuery.select(root);
+        Predicate predicate = criteriaBuilder.or(criteriaBuilder.equal(root.get("name"), name));
+        Query<Employee> query = this.currentSession().createQuery(criteriaQuery.where(predicate));
+        return query.list();
+    }
+
+    @Override
+    public List<Employee> getByName(String name, String orderField) {
+        CriteriaBuilder criteriaBuilder = this.currentSession().getCriteriaBuilder();
+        CriteriaQuery<Employee> criteriaQuery = criteriaBuilder.createQuery(Employee.class);
+        Root<Employee> root = criteriaQuery.from(Employee.class);
+        criteriaQuery = criteriaQuery.select(root);
+        Predicate predicate = criteriaBuilder.or(criteriaBuilder.equal(root.get("name"), name));
+        Order order = criteriaBuilder.asc(root.get(orderField));
+        Query<Employee> query = this.currentSession().createQuery(criteriaQuery.where(predicate).orderBy(order));
+        return query.list();
+    }
+
+    @Override
+    public List<Employee> getByName(String name, String[] orderFields) {
+        CriteriaBuilder criteriaBuilder = this.currentSession().getCriteriaBuilder();
+        CriteriaQuery<Employee> criteriaQuery = criteriaBuilder.createQuery(Employee.class);
+        Root<Employee> root = criteriaQuery.from(Employee.class);
+        criteriaQuery = criteriaQuery.select(root);
+        Predicate predicate = criteriaBuilder.or(criteriaBuilder.equal(root.get("name"), name));
+        List<Order> orders = new ArrayList<>();
+        for (String orderField : orderFields) {
+            orders.add(criteriaBuilder.asc(root.get(orderField)));
+        }
+        Query<Employee> query = this.currentSession().createQuery(criteriaQuery.where(predicate).orderBy(orders));
+        return query.list();
+    }
+
+    @Override
+    public List<Employee> getByNameAndAge(String name, Integer age) {
+        CriteriaBuilder criteriaBuilder = this.currentSession().getCriteriaBuilder();
+        CriteriaQuery<Employee> criteriaQuery = criteriaBuilder.createQuery(Employee.class);
+        Root<Employee> root = criteriaQuery.from(Employee.class);
+        criteriaQuery = criteriaQuery.select(root);
+        List<Predicate> predicates = new ArrayList<>();
+        predicates.add(criteriaBuilder.or(criteriaBuilder.equal(root.get("name"), name)));
+        predicates.add(criteriaBuilder.or(criteriaBuilder.equal(root.get("age"), age)));
+        Query<Employee> query = this.currentSession().createQuery(criteriaQuery.where(predicates.toArray(new Predicate[0])));
+        return query.list();
     }
 }

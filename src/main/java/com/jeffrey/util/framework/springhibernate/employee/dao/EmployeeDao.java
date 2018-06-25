@@ -22,7 +22,37 @@ public interface EmployeeDao {
      */
     Employee getById(Integer id);
 
-    void update(Employee employee);
+    /**
+     * 插入或更新
+     * @param employee
+     */
+    void saveOrUpdate(Employee employee);
 
+    /**
+     *  删除
+     * @param employee
+     */
     void delete(Employee employee);
+
+    /**
+     * 根据名字查询 where name=?
+     */
+    List<Employee> getByName(String name);
+
+    /**
+     * 根据名字查询并根据年龄排序 where name=? order by age
+     */
+    List<Employee> getByName(String name,String orderField);
+
+    /**
+     * 根据名字查询并根据年龄、姓名排序 where name=? order by age,name
+     */
+    List<Employee> getByName(String name,String[] orderFields);
+
+    /**
+     * 根据名字和年龄查询 where name=? or age=?
+     */
+    List<Employee> getByNameAndAge(String name,Integer age);
+
+
 }
