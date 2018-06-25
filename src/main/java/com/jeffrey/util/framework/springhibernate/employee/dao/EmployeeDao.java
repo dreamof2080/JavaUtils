@@ -54,5 +54,8 @@ public interface EmployeeDao {
      */
     List<Employee> getByNameAndAge(String name,Integer age);
 
-
+    /**
+     * 获取年龄最大的employee max(age)
+     */
+    List<Employee> getByMaxAge(Integer age);
 }

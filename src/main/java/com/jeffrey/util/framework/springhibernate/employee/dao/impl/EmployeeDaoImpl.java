@@ -101,4 +101,16 @@ public class EmployeeDaoImpl extends HibernateDaoSupport implements EmployeeDao 
         Query<Employee> query = this.currentSession().createQuery(criteriaQuery.where(predicates.toArray(new Predicate[0])));
         return query.list();
     }
+
+    @Override
+    public List<Employee> getByMaxAge(Integer age) {
+        CriteriaBuilder criteriaBuilder = this.currentSession().getCriteriaBuilder();
+        CriteriaQuery<Employee> criteriaQuery = criteriaBuilder.createQuery(Employee.class);
+        Root<Employee> root = criteriaQuery.from(Employee.class);
+        Expression maxExpr = root.get("age");
+        criteriaQuery = criteriaQuery.select(criteriaBuilder.max(maxExpr));
+
+        Query<Employee> query = this.currentSession().createQuery(criteriaQuery);
+        return query.list();
+    }
 }
