@@ -1,13 +1,13 @@
 package com.jeffrey.util.office;
 
+import fr.opensagres.poi.xwpf.converter.core.BasicURIResolver;
+import fr.opensagres.poi.xwpf.converter.core.FileImageExtractor;
+import fr.opensagres.poi.xwpf.converter.xhtml.XHTMLConverter;
+import fr.opensagres.poi.xwpf.converter.xhtml.XHTMLOptions;
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.converter.PicturesManager;
 import org.apache.poi.hwpf.converter.WordToHtmlConverter;
 import org.apache.poi.hwpf.usermodel.PictureType;
-import org.apache.poi.xwpf.converter.core.BasicURIResolver;
-import org.apache.poi.xwpf.converter.core.FileImageExtractor;
-import org.apache.poi.xwpf.converter.xhtml.XHTMLConverter;
-import org.apache.poi.xwpf.converter.xhtml.XHTMLOptions;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.w3c.dom.Document;
 
@@ -44,7 +44,7 @@ public class POIWordToHtml {
                     @Override
                     public String savePicture(byte[] content, PictureType pictureType, String suggestedName,
                                               float widthInches, float heightInches) {
-                        File file = new File(picturesPath + "\\" + suggestedName);
+                        File file = new File(picturesPath + File.separator + suggestedName);
                         FileOutputStream fos = null;
                         try {
                             fos = new FileOutputStream(file);
@@ -53,7 +53,7 @@ public class POIWordToHtml {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        return picturesPath + "/" + suggestedName;
+                        return picturesPath + File.separator + suggestedName;
                     }
                 });
                 wordToHtmlConverter.processDocument(wordDocument);
@@ -68,9 +68,8 @@ public class POIWordToHtml {
                 serializer.setOutputProperty(OutputKeys.INDENT, "yes");
                 serializer.setOutputProperty(OutputKeys.METHOD, "html");
                 serializer.transform(domSource, streamResult);
+                FileUtils.writeFile(new String(out.toByteArray(),ENCODING), targetPath);
                 out.close();
-                FileUtils.writeFile(new String(out.toByteArray(),ENCODING), targetPath); content = out.toString(); out.close();
-                content = out.toString();
             } else if (ext.equals("docx")) {
                 // 1) 加载word文档生成 XWPFDocument对象
                 InputStream in = new FileInputStream(new File(sourcePath));
