@@ -57,10 +57,12 @@ public class FileUtils {
             ioe.printStackTrace();
         } finally {
             try {
-                if (bw != null)
+                if (bw != null) {
                     bw.close();
-                if (os != null)
+                }
+                if (os != null) {
                     os.close();
+                }
             } catch (IOException ie) {
                 ie.printStackTrace();
             }
