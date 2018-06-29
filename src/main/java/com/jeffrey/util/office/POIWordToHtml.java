@@ -2,6 +2,7 @@ package com.jeffrey.util.office;
 
 import fr.opensagres.poi.xwpf.converter.core.BasicURIResolver;
 import fr.opensagres.poi.xwpf.converter.core.FileImageExtractor;
+import fr.opensagres.poi.xwpf.converter.core.ImageManager;
 import fr.opensagres.poi.xwpf.converter.xhtml.XHTMLConverter;
 import fr.opensagres.poi.xwpf.converter.xhtml.XHTMLOptions;
 import org.apache.poi.hwpf.HWPFDocument;
@@ -26,7 +27,6 @@ import java.io.*;
  * @date 2018-06-26 10:29
  **/
 public class POIWordToHtml {
-    private static final String ENCODING = "GB2312";
 
     public static String wordToHtml(String sourcePath, final String picturesPath, String targetPath){
         String ext = FileUtils.GetFileExt(sourcePath);
@@ -36,7 +36,7 @@ public class POIWordToHtml {
         }
         String content = null;
         try {
-            if (ext.equals("doc")) {
+            if ("doc".equals(ext)) {
                 HWPFDocument wordDocument = new HWPFDocument(new FileInputStream(sourcePath));
                 WordToHtmlConverter wordToHtmlConverter = new WordToHtmlConverter(
                         DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument());
@@ -64,20 +64,20 @@ public class POIWordToHtml {
 
                 TransformerFactory tf = TransformerFactory.newInstance();
                 Transformer serializer = tf.newTransformer();
-                serializer.setOutputProperty(OutputKeys.ENCODING, ENCODING);
+                serializer.setOutputProperty(OutputKeys.ENCODING, FileUtils.ENCODING);
                 serializer.setOutputProperty(OutputKeys.INDENT, "yes");
                 serializer.setOutputProperty(OutputKeys.METHOD, "html");
                 serializer.transform(domSource, streamResult);
-                FileUtils.writeFile(new String(out.toByteArray(),ENCODING), targetPath);
+                FileUtils.writeFile(new String(out.toByteArray(),FileUtils.ENCODING), targetPath);
                 out.close();
-            } else if (ext.equals("docx")) {
+            } else if ("docx".equals(ext)) {
                 // 1) 加载word文档生成 XWPFDocument对象
                 InputStream in = new FileInputStream(new File(sourcePath));
                 XWPFDocument document = new XWPFDocument(in);
                 // 2) 解析 XHTML配置 (这里设置IURIResolver来设置图片存放的目录)
                 XHTMLOptions options = XHTMLOptions.create();
-                options.setExtractor(new FileImageExtractor(picturesDir));
-                options.URIResolver(new BasicURIResolver(picturesPath));
+                options.setImageManager(new ImageManager(picturesDir,"images"));
+//                options.URIResolver(new BasicURIResolver(picturesPath));
                 // 3) 将 XWPFDocument转换成XHTML
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 XHTMLConverter.getInstance().convert(document, baos, options);

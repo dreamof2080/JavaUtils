@@ -7,7 +7,7 @@ import java.io.*;
  * @date 2018-06-26 10:30
  **/
 public class FileUtils {
-    private static final String ENCODING = "GB2312";
+    public static final String ENCODING = "GB2312";
 
     public static String GetFileExt(String path) {
         String ext = null;
