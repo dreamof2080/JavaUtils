@@ -2,7 +2,9 @@ package com.jeffrey.util.framework.springhibernate.employee.dao;
 
 import com.jeffrey.util.framework.springhibernate.employee.entity.Employee;
 
+import javax.persistence.Tuple;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Jeffrey.Liu
@@ -67,5 +69,10 @@ public interface EmployeeDao {
     /**
      * 查询某个字段 select name from employee where id=?
      */
-    String getNameById(Integer id);
+    List<String> getNameById(Integer id);
+
+    /**
+     * 查询多个字段
+     */
+    List<Tuple> getMultiById(Integer id);
 }

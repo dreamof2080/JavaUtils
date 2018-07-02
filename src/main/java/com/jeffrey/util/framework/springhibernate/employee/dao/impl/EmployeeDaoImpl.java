@@ -10,9 +10,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import javax.persistence.Tuple;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Jeffrey.Liu
@@ -127,13 +129,24 @@ public class EmployeeDaoImpl extends HibernateDaoSupport implements EmployeeDao 
     }
 
     @Override
-    public String getNameById(Integer id) {
+    public List<String> getNameById(Integer id) {
         CriteriaBuilder criteriaBuilder = this.currentSession().getCriteriaBuilder();
         CriteriaQuery<String> criteriaQuery = criteriaBuilder.createQuery(String.class);
         Root<Employee> root = criteriaQuery.from(Employee.class);
         criteriaQuery = criteriaQuery.select(root.<String>get("name"));
         Predicate predicate = criteriaBuilder.and(criteriaBuilder.equal(root.get("id"),id));
         Query<String> query = this.currentSession().createQuery(criteriaQuery.where(predicate));
-        return query.uniqueResult();
+        return query.list();
+    }
+
+    @Override
+    public List<Tuple> getMultiById(Integer id) {
+        CriteriaBuilder criteriaBuilder = this.currentSession().getCriteriaBuilder();
+        CriteriaQuery<Tuple> criteriaQuery = criteriaBuilder.createQuery(Tuple.class);
+        Root<Employee> root = criteriaQuery.from(Employee.class);
+        criteriaQuery = criteriaQuery.multiselect(root.<String>get("name"),root.<Integer>get("age"));
+        Predicate predicate = criteriaBuilder.and(criteriaBuilder.equal(root.get("id"),id));
+        Query<Tuple> query = this.currentSession().createQuery(criteriaQuery.where(predicate));
+        return query.list();
     }
 }
