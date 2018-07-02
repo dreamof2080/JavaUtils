@@ -63,4 +63,9 @@ public interface EmployeeDao {
      * 模糊查询
      */
     List<Employee> getBySomeName(String pattern);
+
+    /**
+     * 查询某个字段 select name from employee where id=?
+     */
+    String getNameById(Integer id);
 }

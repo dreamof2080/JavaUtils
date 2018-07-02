@@ -125,4 +125,15 @@ public class EmployeeDaoImpl extends HibernateDaoSupport implements EmployeeDao 
         Query<Employee> query = this.currentSession().createQuery(criteriaQuery.where(predicate));
         return query.list();
     }
+
+    @Override
+    public String getNameById(Integer id) {
+        CriteriaBuilder criteriaBuilder = this.currentSession().getCriteriaBuilder();
+        CriteriaQuery<String> criteriaQuery = criteriaBuilder.createQuery(String.class);
+        Root<Employee> root = criteriaQuery.from(Employee.class);
+        criteriaQuery = criteriaQuery.select(root.<String>get("name"));
+        Predicate predicate = criteriaBuilder.and(criteriaBuilder.equal(root.get("id"),id));
+        Query<String> query = this.currentSession().createQuery(criteriaQuery.where(predicate));
+        return query.uniqueResult();
+    }
 }
