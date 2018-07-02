@@ -121,7 +121,7 @@ public class EmployeeDaoImpl extends HibernateDaoSupport implements EmployeeDao 
         Root<Employee> root = criteriaQuery.from(Employee.class);
         criteriaQuery = criteriaQuery.select(root);
         Expression<String> expression = root.get("name");
-        Predicate predicate = criteriaBuilder.and(criteriaBuilder.like(expression, pattern));
+        Predicate predicate = criteriaBuilder.and(criteriaBuilder.like(criteriaBuilder.upper(expression), "%"+pattern.toUpperCase()+"%"));
         Query<Employee> query = this.currentSession().createQuery(criteriaQuery.where(predicate));
         return query.list();
     }
