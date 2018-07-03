@@ -1,5 +1,6 @@
 package com.jeffrey.util.framework.springhibernate.employee.dao.impl;
 
+import com.jeffrey.util.framework.springhibernate.employee.entity.Department;
 import com.jeffrey.util.framework.springhibernate.employee.entity.Employee;
 import com.jeffrey.util.framework.springhibernate.employee.dao.EmployeeDao;
 import org.hibernate.SessionFactory;
@@ -148,5 +149,29 @@ public class EmployeeDaoImpl extends HibernateDaoSupport implements EmployeeDao 
         Predicate predicate = criteriaBuilder.and(criteriaBuilder.equal(root.get("id"),id));
         Query<Tuple> query = this.currentSession().createQuery(criteriaQuery.where(predicate));
         return query.list();
+    }
+
+    @Override
+    public List<Tuple> getFromTwoTables(String deptid) {
+        CriteriaBuilder criteriaBuilder = this.currentSession().getCriteriaBuilder();
+        CriteriaQuery<Tuple> criteriaQuery = criteriaBuilder.createQuery(Tuple.class);
+
+        Root<Employee> root = criteriaQuery.from(Employee.class);
+        Root<Department> root2 = criteriaQuery.from(Department.class);
+
+        criteriaQuery = criteriaQuery.multiselect(root.get("name"),root2.get("name"));
+
+        List<Predicate> predicates = new ArrayList<>();
+        predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("deptid"),root2.get("id"))));
+        predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("age"),20)));
+        Query query = this.currentSession().createQuery(criteriaQuery.where(predicates.toArray(new Predicate[0])));
+
+        List<Tuple> list = query.list();
+        for (Tuple tuple : list) {
+            String deployeeName = (String) tuple.get(0);
+            String deptName = (String)tuple.get(1);
+            System.out.println(deployeeName+"/"+deptName);
+        }
+        return null;
     }
 }

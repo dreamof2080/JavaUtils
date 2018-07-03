@@ -75,4 +75,9 @@ public interface EmployeeDao {
      * 查询多个字段
      */
     List<Tuple> getMultiById(Integer id);
+
+    /**
+     * 连接两个表进行查询 from employee,department
+     */
+    List<Tuple> getFromTwoTables(String deptid);
 }

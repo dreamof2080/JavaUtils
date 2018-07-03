@@ -16,6 +16,7 @@ public class Employee {
     private Integer id;
     private String name;
     private Integer age;
+    private Integer deptid;
 
     public Integer getId() {
         return id;
@@ -39,6 +40,14 @@ public class Employee {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public Integer getDeptid() {
+        return deptid;
+    }
+
+    public void setDeptid(Integer deptid) {
+        this.deptid = deptid;
     }
 
     @Override
