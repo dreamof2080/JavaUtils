@@ -1,8 +1,8 @@
 package com.jeffrey.util.framework.springhibernate.employee.dao.impl;
 
+import com.jeffrey.util.framework.springhibernate.employee.dao.EmployeeDao;
 import com.jeffrey.util.framework.springhibernate.employee.entity.Department;
 import com.jeffrey.util.framework.springhibernate.employee.entity.Employee;
-import com.jeffrey.util.framework.springhibernate.employee.dao.EmployeeDao;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +10,10 @@ import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import javax.persistence.Tuple;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Jeffrey.Liu
@@ -153,6 +151,7 @@ public class EmployeeDaoImpl extends HibernateDaoSupport implements EmployeeDao 
 
     @Override
     public List<Tuple> getFromTwoTables(String deptid) {
+        //这种方法生成的sql语句是cross join,当表的数据量大的时候效率很慢
         CriteriaBuilder criteriaBuilder = this.currentSession().getCriteriaBuilder();
         CriteriaQuery<Tuple> criteriaQuery = criteriaBuilder.createQuery(Tuple.class);
 
@@ -173,5 +172,22 @@ public class EmployeeDaoImpl extends HibernateDaoSupport implements EmployeeDao 
             System.out.println(deployeeName+"/"+deptName);
         }
         return null;
+    }
+
+    @Override
+    public List<Employee> getNotIn(String deptname) {
+        CriteriaBuilder criteriaBuilder = this.currentSession().getCriteriaBuilder();
+        CriteriaQuery<Employee> criteriaQuery = criteriaBuilder.createQuery(Employee.class);
+        Root<Employee> root = criteriaQuery.from(Employee.class);
+        criteriaQuery = criteriaQuery.select(root);
+        List<Predicate> predicates = new ArrayList<>();
+
+        Subquery<String> subquery = criteriaQuery.subquery(String.class);
+        Root<Department> subroot = subquery.from(Department.class);
+        subquery.select(subroot.<String>get("id"));
+        subquery.where(criteriaBuilder.equal(subroot.get("name"),deptname));
+        predicates.add(criteriaBuilder.and(criteriaBuilder.not(criteriaBuilder.in(root.get("deptid")).value(subquery))));
+        Query<Employee> query = this.currentSession().createQuery(criteriaQuery.where(predicates.toArray(new Predicate[0])));
+        return query.list();
     }
 }

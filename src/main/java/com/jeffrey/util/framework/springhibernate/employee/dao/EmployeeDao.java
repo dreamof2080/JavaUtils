@@ -62,7 +62,7 @@ public interface EmployeeDao {
     List<Employee> getByMaxAge(Integer age);
 
     /**
-     * 模糊查询
+     * 模糊查询 where a like '%'||b||'%'
      */
     List<Employee> getBySomeName(String pattern);
 
@@ -80,4 +80,10 @@ public interface EmployeeDao {
      * 连接两个表进行查询 from employee,department
      */
     List<Tuple> getFromTwoTables(String deptid);
+
+    /**
+     *  where a not in (select b from c)
+     */
+    List<Employee> getNotIn(String deptname);
+
 }
