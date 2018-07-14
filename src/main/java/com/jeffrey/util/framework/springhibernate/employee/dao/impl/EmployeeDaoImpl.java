@@ -21,8 +21,6 @@ import java.util.List;
  */
 @Repository
 public class EmployeeDaoImpl extends HibernateDaoSupport implements EmployeeDao {
-    @Autowired
-    private SessionFactory sessionFactory;
 
     @Override
     public List<Employee> getAll() {
@@ -40,19 +38,16 @@ public class EmployeeDaoImpl extends HibernateDaoSupport implements EmployeeDao 
     }
 
     @Override
-    @Transactional
     public void saveOrUpdate(Employee employee) {
         this.currentSession().saveOrUpdate(employee);
     }
 
     @Override
-    @Transactional
     public void delete(Employee employee) {
         this.currentSession().delete(employee);
     }
 
     @Override
-    @Transactional
     public List<Employee> getByName(String name){
         CriteriaBuilder criteriaBuilder = this.currentSession().getCriteriaBuilder();
         CriteriaQuery<Employee> criteriaQuery = criteriaBuilder.createQuery(Employee.class);
