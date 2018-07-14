@@ -7,12 +7,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Jeffrey.Liu
  * @date 2018-6-23
  */
 @Service
+@Transactional
 public class EmployeeServiceImpl implements EmployeeService {
     private final Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
