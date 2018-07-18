@@ -12,7 +12,7 @@ import org.junit.Test;
 public class JsoupTest {
     @Test
     public void test(){
-        Document document = Jsoup.parse("");//  Document document = new Document();
+        Document document = Jsoup.parse("");//  Document document = new Document("");
         Element element = document.createElement("input");
         element.attr("type","text").attr("name","field1").attr("id","field1");
         element.val("123");
