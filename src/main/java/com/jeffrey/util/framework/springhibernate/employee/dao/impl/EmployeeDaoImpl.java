@@ -186,8 +186,8 @@ public class EmployeeDaoImpl extends HibernateDaoSupport implements EmployeeDao 
 
     @Override
     public List<Integer> getByNativeSQL() {
-        String sql = "select id from employee";
-        NativeQuery nativeQuery = this.currentSession().createNativeQuery(sql);
+        String sql = "select name from employee where id=?";
+        NativeQuery nativeQuery = this.currentSession().createNativeQuery(sql).setParameter(1,100);
         List resultList = nativeQuery.getResultList();
         if (!resultList.isEmpty()){
             for (Object o : resultList) {
