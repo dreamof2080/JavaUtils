@@ -22,7 +22,7 @@ public class YamlTest {
 
     @Test
     public void test(){
-        System.out.println(yamlProperties.get("form.class"));
+        System.out.println(yamlProperties.getProperty("form.class"));
         System.out.println(yamlProperties.get("workflow.name"));
     }
 }
