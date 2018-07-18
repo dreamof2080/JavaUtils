@@ -13,10 +13,18 @@ public class JsoupTest {
     @Test
     public void test(){
         Document document = new Document("");
-        Element element = document.createElement("a");
-        element.addClass("test");
+        Element element = document.createElement("input");
+        element.attr("type","text").attr("name","field1").attr("id","field1");
+        element.val("123");
         document.appendChild(element);
         System.out.println(element.outerHtml());
-        System.out.println(document.outerHtml());
+
+        Element span = document.createElement("span");
+        span.appendText("123").attr("id","xxspan");
+        System.out.println(span.outerHtml());
+
+        Element img = document.createElement("img");
+        img.attr("src","/images/base/checkinput.gif");
+        System.out.println(img.outerHtml());
     }
 }
