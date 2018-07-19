@@ -87,6 +87,11 @@ public interface EmployeeDao {
     List<Employee> getNotIn(String deptname);
 
     /**
+     * where (a=1 or a=2 or a=3) and b=1
+     */
+    List<Employee> getMultiOr();
+
+    /**
      * createNativeQuery使用：select id from employee
      */
     List<Integer> getByNativeSQL();

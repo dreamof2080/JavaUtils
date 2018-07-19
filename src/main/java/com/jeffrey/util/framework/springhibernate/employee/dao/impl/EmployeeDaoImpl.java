@@ -185,6 +185,25 @@ public class EmployeeDaoImpl extends HibernateDaoSupport implements EmployeeDao 
     }
 
     @Override
+    public List<Employee> getMultiOr() {
+        List<Integer> datalist = new ArrayList<>();
+        datalist.add(1);
+        datalist.add(2);
+        datalist.add(3);
+        CriteriaBuilder criteriaBuilder = this.currentSession().getCriteriaBuilder();
+        CriteriaQuery<Employee> criteriaQuery = criteriaBuilder.createQuery(Employee.class);
+        Root<Employee> root = criteriaQuery.from(Employee.class);
+        criteriaQuery = criteriaQuery.select(root);
+        List<Predicate> predicates = new ArrayList<>();
+        for (Integer integer : datalist) {
+            predicates.add(criteriaBuilder.equal(root.get("id"),integer));
+        }
+        Predicate predicate = criteriaBuilder.and(criteriaBuilder.or(predicates.toArray(new Predicate[]{})),criteriaBuilder.equal(root.get("name"), "test"));
+        Query<Employee> query = this.currentSession().createQuery(criteriaQuery.where(predicate));
+        return query.list();
+    }
+
+    @Override
     public List<Integer> getByNativeSQL() {
         String sql = "select name from employee where id=?";
         NativeQuery nativeQuery = this.currentSession().createNativeQuery(sql).setParameter(1,100);
