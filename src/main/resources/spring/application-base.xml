@@ -8,9 +8,7 @@
        default-autowire="byName">
 
     <!--资源文件路径-->
-    <mvc:resources location="/resources/img" mapping="/images/**" />
-    <mvc:resources location="/resources/css" mapping="/css/**" />
-    <mvc:resources location="/resources/js" mapping="/js/**" />
+    <mvc:resources location="/resources/" mapping="/resources/**" />
 
     <!--扫描注解的包-->
     <context:component-scan base-package="com.jeffrey"/>
@@ -33,7 +31,7 @@
         <property name="resources">
             <list>
                 <value>classpath:form.yaml</value>
-                <value>workflow.yaml</value>
+                <value>classpath:workflow.yaml</value>
             </list>
         </property>
     </bean>
