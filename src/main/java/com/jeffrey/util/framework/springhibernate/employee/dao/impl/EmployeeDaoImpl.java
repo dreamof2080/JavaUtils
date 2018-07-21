@@ -3,12 +3,10 @@ package com.jeffrey.util.framework.springhibernate.employee.dao.impl;
 import com.jeffrey.util.framework.springhibernate.employee.dao.EmployeeDao;
 import com.jeffrey.util.framework.springhibernate.employee.entity.Department;
 import com.jeffrey.util.framework.springhibernate.employee.entity.Employee;
-import org.hibernate.SessionFactory;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Tuple;
 import javax.persistence.criteria.*;
@@ -184,5 +182,33 @@ public class EmployeeDaoImpl extends HibernateDaoSupport implements EmployeeDao 
         predicates.add(criteriaBuilder.and(criteriaBuilder.not(criteriaBuilder.in(root.get("deptid")).value(subquery))));
         Query<Employee> query = this.currentSession().createQuery(criteriaQuery.where(predicates.toArray(new Predicate[0])));
         return query.list();
+    }
+
+    @Override
+    public List<Integer> getByNativeSQL() {
+        String sql = "select name from employee where id=?";
+        NativeQuery nativeQuery = this.currentSession().createNativeQuery(sql).setParameter(1,100);
+        List resultList = nativeQuery.getResultList();
+        if (!resultList.isEmpty()){
+            for (Object o : resultList) {
+                System.out.println((String)o);
+            }
+        }
+        return resultList;
+    }
+
+    @Override
+    public List<Object[]> getByNativeSQL2() {
+        String sql = "select * from employee where id=?";
+        NativeQuery nativeQuery = this.currentSession().createNativeQuery(sql).setParameter(1,100);
+        List<Object[]> resultList = nativeQuery.getResultList();
+        if (!resultList.isEmpty()){
+            for (Object[] objects : resultList) {
+                for (Object object : objects) {
+                    System.out.println(object);
+                }
+            }
+        }
+        return resultList;
     }
 }

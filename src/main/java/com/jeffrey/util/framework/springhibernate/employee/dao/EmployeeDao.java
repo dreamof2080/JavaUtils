@@ -86,4 +86,13 @@ public interface EmployeeDao {
      */
     List<Employee> getNotIn(String deptname);
 
+    /**
+     * createNativeQuery使用：select id from employee
+     */
+    List<Integer> getByNativeSQL();
+
+    /**
+     * createNativeQuery使用：select * from employee
+     */
+    List<Object[]> getByNativeSQL2();
 }
