@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<script th:src="@{/resources/js/d3/d3.min.js}" src="../../../../resources/js/d3/d3.min.js" type="text/javascript"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>测试1</p>
+<p>测试2</p>
+<p>测试3</p>
+<p>测试4</p>
+<circle></circle>
+<circle></circle>
+<circle></circle>
+<script>
+    //根据奇数偶数设置颜色
+    d3.selectAll("p").style("color",function (d,i) {
+        return i%2 ? "#adff95":"#d74fee";
+    });
+    //根据数组赋值
+    d3.selectAll("p").data([4,8,15,16,23,42]).style("font-size",function (d) {
+        return d+"px";
+    });
+    //插入元素
+    d3.select("body").selectAll("p").data([4,8,15,16,23,42]).enter().append("p")
+    .text(function (d) {
+        return "i'm number "+d+"!";
+    });
+
+    //替换元素的text
+    var p = d3.select("body").selectAll("p").data([4,8,15,16,23,42]).text(function (d) {
+        return d;
+    });
+    //插入元素
+    p.enter().append("p").text(function (d) {
+        return d;
+    });
+
+    p.exit().remove();
+
+    d3.select("body").transition().style("background-color","black");
+
+    async function getData(){
+        var data = await d3.csv("../../../../resources/files/data.csv");
+        return data;
+    }
+    console.log(getData())
+</script>
+</body>
+</html>

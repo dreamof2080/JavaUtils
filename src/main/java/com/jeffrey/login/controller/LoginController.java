@@ -23,4 +23,9 @@ public class LoginController {
         model.addAttribute("test","测试");
         return "main/login";
     }
+
+    @GetMapping("/d3/p1")
+    public String p1(){
+        return "d3/practise/p1";
+    }
 }
