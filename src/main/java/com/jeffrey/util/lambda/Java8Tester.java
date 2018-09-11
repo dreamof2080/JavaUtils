@@ -19,6 +19,14 @@ public class Java8Tester {
         System.out.println("10-5=" + tester.operate(10,5,subtraction));
         System.out.println("10*5=" + tester.operate(10,5, multiplication));
         System.out.println("10/5=" + tester.operate(10,5,division));
+
+        //不用括号
+        GreetingService greetingService1 = message -> System.out.println("Hello"+message);
+        //用括号
+        GreetingService greetingService2 = (message) -> System.out.println("Hello"+message);
+
+        greetingService1.sayMessage("Test1");
+        greetingService2.sayMessage("Test2");
     }
 
     interface MathOperation{
