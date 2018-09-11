@@ -18,6 +18,16 @@
         </property>
     </bean>
 
+    <!--加载yaml-->
+    <bean id="yamlProperties" class="org.springframework.beans.factory.config.YamlPropertiesFactoryBean">
+        <property name="resources">
+            <list>
+                <value>classpath:form.yaml</value>
+                <value>workflow.yaml</value>
+            </list>
+        </property>
+    </bean>
+
     <!--ali数据库连接池配置-->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <!--基本属性 url、user、password-->
