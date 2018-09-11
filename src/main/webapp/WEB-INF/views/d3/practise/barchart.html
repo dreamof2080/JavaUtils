@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<script th:src="@{/resources/js/d3/d3.min.js}" src="../../../../resources/js/d3/d3.min.js" type="text/javascript"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>barchart</title>
+    <style>
+        .bar-chart{
+            background-color: #C7D9D9;
+        }
+    </style>
+</head>
+<body>
+    <svg class="bar-chart"></svg>
+
+<script>
+    // var dataset = [80, 100, 56, 120, 180, 30, 40, 120, 160];
+    var dataset = [1,2,3,4,5];
+    var svgWidth = 500,svgHeight=300,barPadding = 5;
+    var barWidth = (svgWidth / dataset.length);
+
+    var svg = d3.select('svg')
+        .attr("width",svgWidth)
+        .attr("height",svgHeight);
+
+    var yScale = d3.scaleLinear()
+        .domain([0,d3.max(dataset)])
+        .range([0,svgHeight-30]);
+
+    var barChart = svg.selectAll("rect")
+        .data(dataset)
+        .enter()
+        .append("rect")
+        .attr("y",function (d) {
+            return svgHeight - yScale(d);
+        })
+        .attr("height",function (d) {
+            return yScale(d);
+        })
+        .attr("width",barWidth - barPadding)
+        .attr("transform",function (d,i) {
+            var translate = [barWidth * i,0];
+            return "translate("+translate+")";
+        });
+
+    var text = svg.selectAll("text")
+        .data(dataset)
+        .enter()
+        .append("text")
+        .text(function (d) {
+            return d;
+        })
+        .attr("y",function (d) {
+            return svgHeight - yScale(d) - 5;
+        })
+        .attr("x",function (d,i) {
+            return barWidth * i + barWidth/4;
+        })
+        .attr("fill","#A64C38")
+</script>
+</body>
+</html>
