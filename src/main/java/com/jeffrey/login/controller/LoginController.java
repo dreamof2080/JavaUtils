@@ -28,4 +28,10 @@ public class LoginController {
     public String p1(){
         return "d3/practise/p1";
     }
+
+    @GetMapping("/test")
+    public String adminTest(Model model){
+        model.addAttribute("name","test");
+        return "test.ftl";
+    }
 }
