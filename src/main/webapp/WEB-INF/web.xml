@@ -18,6 +18,21 @@
     <url-pattern>*.html</url-pattern>
   </servlet-mapping>
 
+  <!--Hessian-->
+  <servlet>
+    <servlet-name>hessian</servlet-name>
+    <servlet-class>com.caucho.hessian.server.HessianServlet</servlet-class>
+    <init-param>
+      <param-name>servic-class</param-name>
+      <param-value>com.jeffrey.util.hessian.impl.HessianServiceImpl</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>hessian</servlet-name>
+    <url-pattern>/hessian/doSomething</url-pattern>
+  </servlet-mapping>
+
+
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
