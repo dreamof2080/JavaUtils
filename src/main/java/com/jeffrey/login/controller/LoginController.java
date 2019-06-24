@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @date 2018-7-15
  */
 @Controller
+@RequestMapping("/user")
 public class LoginController {
 
     @GetMapping("/index")
@@ -32,6 +33,6 @@ public class LoginController {
     @GetMapping("/test")
     public String adminTest(Model model){
         model.addAttribute("name","test");
-        return "test.ftl";
+        return "test";
     }
 }
