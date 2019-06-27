@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd">
+        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<!--    springMVC拦截器-->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="com.jeffrey.util.interceptor.BaseInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 	<!-- freemarker begin -->
 	<!-- 配置Freemarker属性文件路径 -->
@@ -27,12 +35,7 @@
 		  class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
 		<property name="viewClass"
 				  value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
-		<!-- 扫描路径內所有以ftl结尾的文件 -->
-		<property name="viewNames">
-			<array>
-				<value>*.ftl</value>
-			</array>
-		</property>
+		<property name="suffix" value=".ftl" />
 		<property name="contentType" value="text/html; charset=UTF-8" />
 		<property name="cache" value="true" />
 		<!-- <property name="exposeRequestAttributes" value="true" /> -->

@@ -21,7 +21,7 @@
 
   <servlet-mapping>
     <servlet-name>springMVC</servlet-name>
-    <url-pattern>/AdminAction/*</url-pattern>
+    <url-pattern>/adminAction/*</url-pattern>
   </servlet-mapping>
 
   <!--Hessian-->
