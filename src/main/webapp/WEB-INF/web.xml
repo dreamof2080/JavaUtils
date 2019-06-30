@@ -4,6 +4,22 @@
 
   <display-name>spring</display-name>
 
+
+  <filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>
+
+
+  <filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
   <!-- Spring servlet -->
   <servlet>
     <servlet-name>springMVC</servlet-name>
@@ -15,14 +31,9 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>springMVC</servlet-name>
-    <url-pattern>*.html</url-pattern>
+    <url-pattern>/*</url-pattern>
   </servlet-mapping>
 
-
-  <servlet-mapping>
-    <servlet-name>springMVC</servlet-name>
-    <url-pattern>/adminAction/*</url-pattern>
-  </servlet-mapping>
 
   <!--Hessian-->
   <servlet>
@@ -40,6 +51,6 @@
 
 
   <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
+    <welcome-file></welcome-file>
   </welcome-file-list>
 </web-app>
