@@ -43,7 +43,7 @@
         <!--alibaba的数据库连接池-->
         <druid.version>1.1.10</druid.version>
         <!--mysql-->
-        <mysql.version>5.1.46</mysql.version>
+        <mysql.version>8.0.16</mysql.version>
         <!--poi操作office-->
         <poi.version>3.17</poi.version>
         <swagger.version>2.9.2</swagger.version>
