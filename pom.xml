@@ -37,7 +37,7 @@
         <log4j.version>2.11.0</log4j.version>
         <slf4j.version>1.7.25</slf4j.version>
         <!--spring-->
-        <spring.version>4.3.18.RELEASE</spring.version>
+        <spring.version>5.2.22.RELEASE</spring.version>
         <!--hibernate-->
         <hibernate.version>5.2.17.Final</hibernate.version>
         <!--alibaba的数据库连接池-->
