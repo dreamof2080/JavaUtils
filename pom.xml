@@ -45,7 +45,7 @@
         <!--mysql-->
         <mysql.version>5.1.46</mysql.version>
         <!--poi操作office-->
-        <poi.version>3.17</poi.version>
+        <poi.version>4.1.1</poi.version>
         <swagger.version>2.9.2</swagger.version>
         <jackson.version>2.9.9</jackson.version>
     </properties>
